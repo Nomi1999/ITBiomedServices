@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Close mobile menu when clicking on a navigation link
+        // Close mobile menu when clicking on a navigation link (but not Services toggle)
         const navLinksItems = navLinks.querySelectorAll('a');
         navLinksItems.forEach(link => {
             link.addEventListener('click', function() {
@@ -57,6 +57,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.removeEventListener('click', closeMenuOnClickOutside);
             });
         });
+        
+        // Handle Services submenu toggle
+        const servicesToggle = navLinks.querySelector('.services-toggle');
+        const servicesSubmenu = navLinks.querySelector('.services-submenu');
+        const servicesChevron = navLinks.querySelector('.services-chevron');
+        
+        if (servicesToggle && servicesSubmenu) {
+            servicesToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log('Services toggle clicked');
+                
+                // Toggle submenu
+                if (servicesSubmenu.style.maxHeight && servicesSubmenu.style.maxHeight !== '0px') {
+                    // Close submenu
+                    servicesSubmenu.style.maxHeight = '0px';
+                    servicesChevron.style.transform = 'rotate(0deg)';
+                    console.log('Services submenu closed');
+                } else {
+                    // Open submenu
+                    servicesSubmenu.style.maxHeight = servicesSubmenu.scrollHeight + 'px';
+                    servicesChevron.style.transform = 'rotate(180deg)';
+                    console.log('Services submenu opened');
+                }
+            });
+        }
         
         // Function to close menu when clicking outside
         function closeMenuOnClickOutside(e) {
