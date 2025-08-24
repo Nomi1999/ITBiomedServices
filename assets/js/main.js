@@ -263,10 +263,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     function animateCounter(element) {
+        // Extract number and suffix (like + or %)
+        const originalText = element.textContent;
         const target = parseInt(element.dataset.counter);
         const duration = parseInt(element.dataset.duration) || 1200; // Faster counter animation
         const start = performance.now();
         const startValue = 0;
+        
+        // Get the suffix by extracting non-numeric part
+        const suffix = originalText.replace(/[0-9]/g, '');
         
         function updateCounter(currentTime) {
             const elapsed = currentTime - start;
@@ -276,12 +281,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const easeOutCubic = 1 - Math.pow(1 - progress, 3);
             const currentValue = Math.floor(startValue + (target - startValue) * easeOutCubic);
             
+            // Display the number during animation (without suffix)
             element.textContent = currentValue;
             
             if (progress < 1) {
                 requestAnimationFrame(updateCounter);
             } else {
-                element.textContent = target;
+                // At the end of animation, display with the suffix
+                element.textContent = target + suffix;
             }
         }
         
