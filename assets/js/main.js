@@ -270,8 +270,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const start = performance.now();
         const startValue = 0;
         
-        // Get the suffix by extracting non-numeric part
-        const suffix = originalText.replace(/[0-9]/g, '');
+        // Get the suffix by extracting non-numeric part, but preserve special characters like "/"
+        // We'll extract everything after the numeric part in the data-counter value
+        const numericPart = element.dataset.counter;
+        const suffix = originalText.substring(numericPart.length);
         
         function updateCounter(currentTime) {
             const elapsed = currentTime - start;
