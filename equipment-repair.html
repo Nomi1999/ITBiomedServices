@@ -409,38 +409,83 @@ function initializeChat() {
     }
 
     // Initialize Fuse.js and load knowledge base
-    fetch('/kb.json')
-      .then(response => {
-        console.log('KB fetch response status:', response.status);
-        return response.json();
-      })
-      .then(data => {
-        console.log('KB data loaded:', data.length, 'entries');
-        kb = data;
-        
-        // Check if Fuse.js is already available
-        if (typeof Fuse !== 'undefined') {
-          console.log('Fuse.js already loaded, initializing');
-          fuse = new Fuse(kb, { keys: ['q','aliases'], includeScore:true, threshold:0.35 });
-        } else {
-          // Load Fuse.js
-          console.log('Loading Fuse.js library');
-          const script = document.createElement('script');
-          script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
-          script.onload = function() {
-            console.log('Fuse.js loaded, initializing');
-            fuse = new Fuse(kb, { keys: ['q','aliases'], includeScore:true, threshold:0.35 });
-          };
-          script.onerror = function() {
-            console.error('Failed to load Fuse.js');
-            // Fuse.js will remain null, fallback search will be used
-          };
-          document.head.appendChild(script);
+    // Function to load KB content
+    function loadKnowledgeBase() {
+      console.log('Loading knowledge base...');
+      
+      // This is the default KB content that will be embedded directly in the HTML 
+      // to ensure the chatbot works even when loaded from filesystem
+      const defaultKB = [
+        {
+          "q": "Do you offer equipment repair?",
+          "a": "Yes. We specialize in surgical and biomedical equipment repair services with certified technicians and fast turnaround times. Our services include endoscopes, patient monitors, OR lights, and infusion pumps. Visit /equipment-repair.html for more details.",
+          "aliases": ["repair services", "fix equipment", "service equipment", "equipment repair"]
+        },
+        {
+          "q": "How can I contact you?",
+          "a": "You can reach us through several channels:\n\n• Phone: (469) 431-2238 (24/7 Emergency Support)\n• Email: info@biomeditcare.com\n• Location: Dallas, TX\n• Business Hours: Monday-Friday 8:00 AM - 6:00 PM, Saturday 9:00 AM - 1:00 PM, Sunday Closed\n\nYou can also visit our contact page at /contact.html or fill out the contact form on our website. We aim to respond to all inquiries within 1 business day.",
+          "aliases": ["contact information", "how to reach you", "phone number", "email address", "get in touch", "contact details"]
+        },
+        {
+          "q": "What is your phone number?",
+          "a": "Our phone number is (469) 431-2238. We provide 24/7 Emergency Support at this number. For general inquiries, our business hours are Monday-Friday 8:00 AM - 6:00 PM, Saturday 9:00 AM - 1:00 PM, and we are closed on Sunday.",
+          "aliases": ["telephone", "call", "phone"]
         }
-      })
-      .catch(error => {
-        console.error('Failed to load knowledge base:', error);
-      });
+      ];
+
+      try {
+        // Try fetching the knowledge base file
+        fetch('./kb.json')
+          .then(response => {
+            console.log('KB fetch response status:', response.status);
+            if (!response.ok) {
+              throw new Error('Failed to fetch knowledge base');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('KB data loaded from file:', data.length, 'entries');
+            kb = data;
+            initializeFuse();
+          })
+          .catch(error => {
+            console.warn('Failed to load external knowledge base, using embedded version:', error);
+            kb = defaultKB;
+            console.log('Using embedded KB with', kb.length, 'entries');
+            initializeFuse();
+          });
+      } catch (e) {
+        console.warn('Error during KB fetch setup, using embedded version:', e);
+        kb = defaultKB;
+        console.log('Using embedded KB with', kb.length, 'entries');
+        initializeFuse();
+      }
+    }
+
+    // Function to initialize Fuse.js
+    function initializeFuse() {
+      if (typeof Fuse !== 'undefined') {
+        console.log('Fuse.js already loaded, initializing');
+        fuse = new Fuse(kb, { keys: ['q','aliases'], includeScore:true, threshold:0.35 });
+      } else {
+        // Load Fuse.js
+        console.log('Loading Fuse.js library');
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+        script.onload = function() {
+          console.log('Fuse.js loaded, initializing');
+          fuse = new Fuse(kb, { keys: ['q','aliases'], includeScore:true, threshold:0.35 });
+        };
+        script.onerror = function() {
+          console.error('Failed to load Fuse.js');
+          // Fuse.js will remain null, fallback search will be used
+        };
+        document.head.appendChild(script);
+      }
+    }
+    
+    // Start the knowledge base loading process
+    loadKnowledgeBase();
 
     // Function to clear chat history
     function clearChatHistory() {
