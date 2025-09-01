@@ -345,6 +345,11 @@ function initializeChat() {
           if (email) {
             addBubble(`Thank you! A live agent will contact you at ${email} soon.`, 'bot');
             transcript.push({role:'bot', content:`Agent requested. Contact: ${email}`});
+            
+            // Add message to transcript that will be included in the email
+            transcript.push({role:'system', content:`User provided email: ${email}`});
+            
+            // Send transcript to owner
             await alertOwner(email);
           }
         });
@@ -405,14 +410,25 @@ function initializeChat() {
     async function alertOwner(email){
       // Using Formspree for notifications
       try{
-        const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        // Format transcript for better readability
+        const formattedTranscript = transcript.map(item => {
+          const role = item.role === 'user' ? '👤 User' : 
+                       item.role === 'bot' ? '🤖 Bot' : 
+                       '🔔 System';
+          return `${role}: ${item.content}`;
+        }).join('\n\n');
+        
+        console.log('Sending notification with transcript:', formattedTranscript);
+        
+        // Send email via Formspree
+        const response = await fetch('https://formspree.io/f/movnwaqe', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             email: email,
-            transcript: JSON.stringify(transcript, null, 2),
+            transcript: formattedTranscript,
             subject: 'IT BioMed Services - Live Agent Request'
           })
         });
@@ -420,6 +436,8 @@ function initializeChat() {
         if (!response.ok) {
           throw new Error('Failed to send notification');
         }
+        
+        console.log('Notification sent successfully');
       }catch(e){ 
         console.error('Notification error:', e);
       }
@@ -451,8 +469,13 @@ function initializeChat() {
       ];
 
       try {
+        // Detect if we're on GitHub Pages or similar hosting with base paths
+        const basePath = window.location.hostname.includes('github.io') ? '/ITBiomedServices' : '';
+        const kbPath = `${basePath}/kb.json`;
+        console.log('Attempting to fetch KB from:', kbPath);
+        
         // Try fetching the knowledge base file
-        fetch('./kb.json')
+        fetch(kbPath)
           .then(response => {
             console.log('KB fetch response status:', response.status);
             if (!response.ok) {
@@ -656,6 +679,11 @@ function initializeChat() {
           if (email) {
             addBubble(`Thank you! A live agent will contact you at ${email} soon.`, 'bot');
             transcript.push({role:'bot', content:`Agent requested. Contact: ${email}`});
+            
+            // Add message to transcript that will be included in the email
+            transcript.push({role:'system', content:`User provided email: ${email}`});
+            
+            // Send transcript to owner
             await alertOwner(email);
           }
         });
