@@ -71,4 +71,588 @@ Send Message
                             });
                         });
                     </script></div></div></section></main><footer class="bg-rich-black text-platinum pt-12 pb-4"> <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"> <div class="text-center md:text-left"> <h3 class="text-silver-lake-blue font-heading text-xl font-bold mb-6">IT BioMed Services</h3> <p class="mb-4 text-gray-300 leading-relaxed">Specializing in surgical and biomedical equipment repair services.</p> <div class="flex gap-4 justify-center md:justify-start mt-4"> <a href="#" aria-label="Facebook" class="text-platinum text-lg hover:text-silver-lake-blue transition-colors duration-300"> <i class="fab fa-facebook-f"></i> </a><a href="#" aria-label="Twitter" class="text-platinum text-lg hover:text-silver-lake-blue transition-colors duration-300"> <i class="fab fa-twitter"></i> </a><a href="#" aria-label="LinkedIn" class="text-platinum text-lg hover:text-silver-lake-blue transition-colors duration-300"> <i class="fab fa-linkedin-in"></i> </a><a href="#" aria-label="Instagram" class="text-platinum text-lg hover:text-silver-lake-blue transition-colors duration-300"> <i class="fab fa-instagram"></i> </a> </div> </div> <div class="text-center md:text-left"> <h3 class="text-silver-lake-blue font-heading text-xl font-bold mb-6">Contact Us</h3> <p class="mb-2 text-gray-300"><i class="fas fa-phone mr-2"></i> Phone: (469) 431-2238</p> <p class="mb-2 text-gray-300"><i class="fas fa-envelope mr-2"></i> Email: info@biomeditcare.com</p> <p class="mb-2 text-gray-300"><i class="fas fa-map-marker-alt mr-2"></i> Address: Dallas, Tx</p> </div> <div class="text-center md:text-left"> <h3 class="text-silver-lake-blue font-heading text-xl font-bold mb-6">Hours</h3> <p class="mb-2 text-gray-300">Monday-Friday: 8:00 AM - 6:00 PM</p><p class="mb-2 text-gray-300">Saturday: 9:00 AM - 1:00 PM</p><p class="mb-2 text-gray-300">Sunday: Closed</p> <p class="bg-yinmn-blue text-white p-2 rounded mt-4 font-semibold"> <i class="fas fa-exclamation-circle mr-2"></i> Emergency Support: (469) 431-2238 </p> </div> </div> <div class="max-w-7xl mx-auto mt-8 pt-4 px-4 border-t border-yinmn-blue flex flex-col md:flex-row justify-between items-center gap-4"> <p class="text-gray-400 text-sm">&copy; 2025 IT BioMed Services. All rights reserved.</p> <p class="flex items-center gap-2 text-gray-400 text-sm"> <img src="./assets/images/logos/TP logo.png" alt="TekkPak Logo" class="h-5 w-auto">
-Powered by <a href="https://www.tekkpak.com" target="_blank" class="text-silver-lake-blue hover:underline">TekkPak</a> </p> </div> </footer> <script src="./assets/js/main.js"></script> </body> </html>
+Powered by <a href="https://www.tekkpak.com" target="_blank" class="text-silver-lake-blue hover:underline">TekkPak</a> </p> </div> </footer> <script src="./assets/js/main.js"></script> <div id="chat-launcher" class="fixed bottom-6 right-6 z-50" data-astro-cid-ryytxnzt> <button id="open-chat" class="rounded-full p-4 shadow-2xl bg-yinmn-blue text-white hover:bg-silver-lake-blue focus:outline-none transition-all duration-300 transform hover:scale-110 hover:shadow-2xl active:scale-95 border-4 border-platinum" data-astro-cid-ryytxnzt> <!-- Enhanced chat icon with message indicator --> <div class="relative" data-astro-cid-ryytxnzt> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" data-astro-cid-ryytxnzt> <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" data-astro-cid-ryytxnzt></path> </svg> <!-- Message indicator dot --> <span class="absolute -top-1 -right-1 block h-4 w-4 rounded-full bg-silver-lake-blue ring-2 ring-platinum" data-astro-cid-ryytxnzt></span> </div> </button> </div> <div id="chat-panel" class="hidden fixed bottom-20 right-6 w-80 max-w-[90vw] bg-white border shadow-2xl rounded-2xl overflow-hidden z-50" data-astro-cid-ryytxnzt> <div class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-yinmn-blue to-silver-lake-blue text-white" data-astro-cid-ryytxnzt> <span class="font-semibold" data-astro-cid-ryytxnzt>IT BioMed Services Support</span> <button id="close-chat" class="text-white/80 hover:text-white" data-astro-cid-ryytxnzt>&times;</button> </div> <div id="chat-log" class="h-80 overflow-y-auto p-3 space-y-2 text-sm bg-gray-50" data-astro-cid-ryytxnzt> <!-- Initial welcome message will be added by JavaScript --> </div> <div class="p-2 border-t bg-white" data-astro-cid-ryytxnzt> <form id="chat-form" class="flex gap-2" data-astro-cid-ryytxnzt> <input id="chat-input" class="flex-1 rounded-xl border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-silver-lake-blue" placeholder="Select an option or type your question..." data-astro-cid-ryytxnzt> <button class="rounded-xl bg-yinmn-blue text-white px-3 py-2 hover:bg-silver-lake-blue transition-colors" data-astro-cid-ryytxnzt>Send</button> </form> </div> </div>  <script>
+// Chat widget initialization - use a flag to prevent multiple initializations
+let chatInitialized = false;
+
+function initChatWidget() {
+  console.log('initChatWidget called');
+  
+  // Only initialize once
+  if (chatInitialized) {
+    console.log('Chat widget already initialized, skipping');
+    return;
+  }
+  
+  // Try to initialize immediately
+  initializeChat();
+  
+  // Also try when DOM is loaded (fallback)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!chatInitialized) initializeChat();
+    });
+  }
+}
+
+function initializeChat() {
+  console.log('initializeChat called, document state:', document.readyState);
+  
+  // Mark as initialized to prevent duplicate initialization
+  chatInitialized = true;
+  
+  // Small delay to ensure all elements are rendered
+  setTimeout(function() {
+    // Get all required elements
+    const launcher = document.getElementById('open-chat');
+    const panel = document.getElementById('chat-panel');
+    const closeBtn = document.getElementById('close-chat');
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('chat-input');
+    const log = document.getElementById('chat-log');
+
+    // Check if all elements are found
+    if (!launcher) console.error('Chat launcher not found');
+    if (!panel) console.error('Chat panel not found');
+    if (!closeBtn) console.error('Close button not found');
+    if (!form) console.error('Chat form not found');
+    if (!input) console.error('Chat input not found');
+    if (!log) console.error('Chat log not found');
+    
+    // If critical elements are missing, try again after a delay
+    if (!launcher || !panel || !closeBtn) {
+      console.log('Critical elements missing, retrying in 500ms...');
+      setTimeout(initializeChat, 500);
+      return;
+    }
+
+    // Chat flow states
+    let currentState = 'main';
+    let transcript = [];
+    let kb = []; // Knowledge base
+    let fuse = null; // Fuse.js instance
+
+    // Service categories
+    const serviceCategories = [
+      { id: 'repair', name: 'Equipment Repair Services', icon: '🔧' },
+      { id: 'rental', name: 'Equipment Rental Options', icon: '📅' },
+      { id: 'sales', name: 'Equipment Sales', icon: '💰' },
+      { id: 'accessories', name: 'Accessories & Parts', icon: '⚙️' },
+      { id: 'about', name: 'About Our Company', icon: '🏢' },
+      { id: 'contact', name: 'Contact Information', icon: '📞' }
+    ];
+
+    // Repair service options
+    const repairOptions = [
+      { id: 'biomedical', name: 'Biomedical Equipment Repair', icon: '🏥' },
+      { id: 'surgical', name: 'Surgical Equipment Repair', icon: '🔪' },
+      { id: 'preventive', name: 'Preventive Maintenance', icon: '🛡️' },
+      { id: 'emergency', name: 'Emergency Repair Service', icon: '🚨' }
+    ];
+
+    // Rental options
+    const rentalOptions = [
+      { id: 'short', name: 'Short-term Rentals', icon: '⏱️' },
+      { id: 'long', name: 'Long-term Rentals', icon: '📅' },
+      { id: 'replacement', name: 'Replacement Equipment', icon: '🔄' },
+      { id: 'evaluation', name: 'Equipment Evaluation', icon: '🔬' }
+    ];
+
+    function addBubble(text, who='bot'){
+      const div = document.createElement('div');
+      div.className = who==='user' ? 'bubble-user' : 'bubble-bot';
+      div.textContent = text;
+      log.appendChild(div);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    function addOptions(options, callbackFunction) {
+      const optionsContainer = document.createElement('div');
+      optionsContainer.className = 'option-buttons';
+      
+      options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-button';
+        button.innerHTML = `<span class="font-bold">${option.icon}</span> ${option.name}`;
+        button.dataset.optionId = option.id;
+        button.addEventListener('click', () => {
+          addBubble(`${option.icon} ${option.name}`, 'user');
+          transcript.push({role:'user', content: option.name});
+          callbackFunction(option.id);
+        });
+        optionsContainer.appendChild(button);
+      });
+      
+      const chatLog = document.getElementById('chat-log');
+      const wrapper = document.createElement('div');
+      wrapper.className = 'bubble-bot';
+      wrapper.appendChild(optionsContainer);
+      chatLog.appendChild(wrapper);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function showMainMenu() {
+      currentState = 'main';
+      addBubble("Please select a category below to get started:");
+      addOptions(serviceCategories, handleCategorySelection);
+    }
+
+    function handleCategorySelection(categoryId) {
+      switch(categoryId) {
+        case 'repair':
+          currentState = 'repair';
+          showRepairOptions();
+          break;
+        case 'rental':
+          currentState = 'rental';
+          showRentalOptions();
+          break;
+        case 'sales':
+          currentState = 'sales';
+          showSalesInfo();
+          break;
+        case 'accessories':
+          currentState = 'accessories';
+          showAccessoriesInfo();
+          break;
+        case 'about':
+          currentState = 'about';
+          showAboutInfo();
+          break;
+        case 'contact':
+          currentState = 'contact';
+          showContactInfo();
+          break;
+        default:
+          showMainMenu();
+      }
+    }
+
+    function showRepairOptions() {
+      addBubble("We specialize in various equipment repair services. Please select the type of repair service you're interested in:");
+      addOptions(repairOptions, handleRepairSelection);
+    }
+
+    function handleRepairSelection(repairId) {
+      switch(repairId) {
+        case 'biomedical':
+          addBubble("Our biomedical equipment repair services include:\n\n• Patient monitors and ECG machines\n• Infusion pumps and IV equipment\n• Respiratory equipment and ventilators\n• Defibrillators and emergency equipment\n• Laboratory equipment\n\nOur certified technicians ensure reliable operation with minimal downtime.\n\nWould you like to speak with a live agent about biomedical equipment repair?");
+          offerAgent();
+          break;
+        case 'surgical':
+          addBubble("Our surgical equipment repair services include:\n\n• Endoscopes and imaging equipment\n• Operating room lights and tables\n• Electrosurgical units\n• Laser equipment\n• Surgical instruments\n\nWe provide fast turnaround times to keep your critical surgical equipment operational.\n\nWould you like to speak with a live agent about surgical equipment repair?");
+          offerAgent();
+          break;
+        case 'preventive':
+          addBubble("Our preventive maintenance program helps prevent equipment failures and extends the lifespan of your medical devices.\n\nBenefits include:\n• Regular equipment inspections\n• Calibration services\n• Performance optimization\n• Early detection of potential issues\n• Reduced emergency repairs\n• Extended equipment lifespan\n\nWould you like to speak with a live agent about our preventive maintenance program?");
+          offerAgent();
+          break;
+        case 'emergency':
+          addBubble("Our 24/7 emergency repair service is available for critical equipment failures.\n\nEmergency services include:\n• Rapid response within 2 business hours\n• Priority scheduling\n• After-hours support\n• Critical equipment diagnostics\n• Immediate repair or replacement recommendations\n\nWould you like to speak with a live agent about emergency repair services?");
+          offerAgent();
+          break;
+        default:
+          showMainMenu();
+      }
+    }
+
+    function showRentalOptions() {
+      addBubble("We offer flexible rental solutions for various needs. Please select the type of rental service you're interested in:");
+      addOptions(rentalOptions, handleRentalSelection);
+    }
+
+    function handleRentalSelection(rentalId) {
+      switch(rentalId) {
+        case 'short':
+          addBubble("Our short-term rental options are perfect for:\n\n• Temporary equipment needs\n• Special procedures or events\n• Equipment trials before purchase\n• Backup during equipment maintenance\n\nRental periods range from a few days to several weeks.\n\nWould you like to speak with a live agent about short-term rentals?");
+          offerAgent();
+          break;
+        case 'long':
+          addBubble("Our long-term rental solutions include:\n\n• Extended equipment usage\n• Cost-effective alternative to purchasing\n• Regular maintenance included\n• Upgrade options available\n• Flexible contract terms\n\nIdeal for facilities with ongoing equipment needs.\n\nWould you like to speak with a live agent about long-term rentals?");
+          offerAgent();
+          break;
+        case 'replacement':
+          addBubble("Our replacement equipment rental service provides:\n\n• Quick turnaround for equipment failures\n• Wide range of medical equipment\n• Same-day availability for critical needs\n• Compatible replacement options\n• Technical support included\n\nMinimize downtime with our reliable replacement solutions.\n\nWould you like to speak with a live agent about replacement equipment?");
+          offerAgent();
+          break;
+        case 'evaluation':
+          addBubble("Our equipment evaluation rental program allows you to:\n\n• Test equipment before purchasing\n• Evaluate performance in your facility\n• Compare different models\n• Assess workflow integration\n• Make informed buying decisions\n\nTry before you buy with our risk-free evaluation period.\n\nWould you like to speak with a live agent about equipment evaluation?");
+          offerAgent();
+          break;
+        default:
+          showMainMenu();
+      }
+    }
+
+    function showSalesInfo() {
+      addBubble("We offer high-quality medical equipment sales from leading manufacturers:\n\n• New and refurbished equipment\n• Competitive pricing\n• Comprehensive warranties\n• Installation services\n• Training and support\n• Financing options available\n\nOur sales team can help you find the right equipment for your facility's needs.\n\nWould you like to speak with a live agent about equipment sales?");
+      offerAgent();
+    }
+
+    function showAccessoriesInfo() {
+      addBubble("We stock a complete range of medical equipment accessories:\n\n• Replacement parts and components\n• Upgrade modules\n• Consumables and supplies\n• Calibration tools\n• Maintenance kits\n• Specialized accessories\n\nKeep your equipment running optimally with our comprehensive accessory catalog.\n\nWould you like to speak with a live agent about accessories and parts?");
+      offerAgent();
+    }
+
+    function showAboutInfo() {
+      addBubble("IT BioMed Services specializes in medical equipment services:\n\n• 20+ years of industry experience\n• Certified technicians\n• Fast turnaround times\n• Comprehensive service offerings\n• Commitment to quality and reliability\n\nWe focus on keeping your critical medical devices operating reliably with minimal downtime.\n\nWould you like to speak with a live agent to learn more about our company?");
+      offerAgent();
+    }
+
+    function showContactInfo() {
+      addBubble("You can reach us through several channels:\n\n• Phone: (469) 431-2238 (24/7 Emergency Support)\n• Email: info@biomeditcare.com\n• Location: Dallas, TX\n• Business Hours: Monday-Friday 8:00 AM - 6:00 PM, Saturday 9:00 AM - 1:00 PM, Sunday Closed\n\nYou can also visit our contact page at /contact.html or fill out the contact form on our website.\n\nWe aim to respond to all inquiries within 1 business day.\n\nWould you like to speak with a live agent now?");
+      offerAgent();
+    }
+
+    function offerAgent(){
+      // Create options for user to either talk to a live agent or return to main menu
+      const optionsContainer = document.createElement('div');
+      optionsContainer.className = 'option-buttons mt-2';
+      
+      // Yes button for live agent
+      const yesButton = document.createElement('button');
+      yesButton.className = 'option-button';
+      yesButton.innerHTML = '<span class="font-bold">✅</span> Yes, connect me to a live agent';
+      yesButton.addEventListener('click', () => {
+        addBubble('Yes, connect me to a live agent', 'user');
+        transcript.push({role:'user', content: 'Yes, connect me to a live agent'});
+        
+        // Ask for email
+        addBubble("To connect you with a live agent, please provide your email address:", 'bot');
+        transcript.push({role:'bot', content:'Requested email for agent connection'});
+        
+        // Create email input form
+        const emailForm = document.createElement('form');
+        emailForm.className = 'flex gap-2';
+        emailForm.innerHTML = `
+          <input type="email" id="email-input" class="flex-1 rounded-xl border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-silver-lake-blue" placeholder="your@email.com" required />
+          <button class="rounded-xl bg-yinmn-blue text-white px-3 py-2 hover:bg-silver-lake-blue transition-colors">Send</button>
+        `;
+        
+        const chatLog = document.getElementById('chat-log');
+        const wrapper = document.createElement('div');
+        wrapper.className = 'bubble-bot';
+        wrapper.appendChild(emailForm);
+        chatLog.appendChild(wrapper);
+        chatLog.scrollTop = chatLog.scrollHeight;
+        
+        const emailInput = emailForm.querySelector('#email-input');
+        emailInput.focus();
+        
+        emailForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const email = emailInput.value.trim();
+          if (email) {
+            addBubble(`Thank you! A live agent will contact you at ${email} soon.`, 'bot');
+            transcript.push({role:'bot', content:`Agent requested. Contact: ${email}`});
+            await alertOwner(email);
+          }
+        });
+      });
+      
+      // No button for main menu
+      const noButton = document.createElement('button');
+      noButton.className = 'option-button';
+      noButton.innerHTML = '<span class="font-bold">❌</span> No, show me the main menu';
+      noButton.addEventListener('click', () => {
+        addBubble('No, show me the main menu', 'user');
+        transcript.push({role:'user', content: 'No, show me the main menu'});
+        showMainMenu();
+      });
+      
+      optionsContainer.appendChild(yesButton);
+      optionsContainer.appendChild(noButton);
+      
+      const chatLog = document.getElementById('chat-log');
+      const wrapper = document.createElement('div');
+      wrapper.className = 'bubble-bot';
+      wrapper.appendChild(optionsContainer);
+      chatLog.appendChild(wrapper);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    async function searchKnowledgeBase(query) {
+      if (!fuse) {
+        // Fallback to simple search if Fuse.js isn't loaded
+        console.log('Fuse.js not loaded, using basic search');
+        for (const item of kb) {
+          // Check question
+          if (item.q.toLowerCase().includes(query.toLowerCase())) {
+            return item.a;
+          }
+          // Check aliases
+          if (item.aliases && Array.isArray(item.aliases)) {
+            for (const alias of item.aliases) {
+              if (alias.toLowerCase().includes(query.toLowerCase())) {
+                return item.a;
+              }
+            }
+          }
+        }
+        return null;
+      }
+      
+      console.log('Using Fuse.js for search with query:', query);
+      const results = fuse.search(query);
+      console.log('Search results:', results);
+      if (results && results.length > 0 && results[0].score <= 0.35) {
+        console.log('Found match:', results[0].item.a);
+        return results[0].item.a;
+      }
+      return null;
+    }
+
+    async function alertOwner(email){
+      // Using Formspree for notifications
+      try{
+        const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            transcript: JSON.stringify(transcript, null, 2),
+            subject: 'IT BioMed Services - Live Agent Request'
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to send notification');
+        }
+      }catch(e){ 
+        console.error('Notification error:', e);
+      }
+    }
+
+    // Initialize Fuse.js and load knowledge base
+    fetch('/kb.json')
+      .then(response => {
+        console.log('KB fetch response status:', response.status);
+        return response.json();
+      })
+      .then(data => {
+        console.log('KB data loaded:', data.length, 'entries');
+        kb = data;
+        
+        // Check if Fuse.js is already available
+        if (typeof Fuse !== 'undefined') {
+          console.log('Fuse.js already loaded, initializing');
+          fuse = new Fuse(kb, { keys: ['q','aliases'], includeScore:true, threshold:0.35 });
+        } else {
+          // Load Fuse.js
+          console.log('Loading Fuse.js library');
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+          script.onload = function() {
+            console.log('Fuse.js loaded, initializing');
+            fuse = new Fuse(kb, { keys: ['q','aliases'], includeScore:true, threshold:0.35 });
+          };
+          script.onerror = function() {
+            console.error('Failed to load Fuse.js');
+            // Fuse.js will remain null, fallback search will be used
+          };
+          document.head.appendChild(script);
+        }
+      })
+      .catch(error => {
+        console.error('Failed to load knowledge base:', error);
+      });
+
+    // Function to clear chat history
+    function clearChatHistory() {
+      // Clear the chat log display
+      const chatLog = document.getElementById('chat-log');
+      chatLog.innerHTML = '';
+      
+      // Add the welcome message with proper styling - define it directly here
+      const welcomeMessage = "Hi! I'm your IT BioMed Services assistant. I can help answer questions about our services.\n\nPlease select a category below to get started:";
+      const welcomeBubble = document.createElement('div');
+      welcomeBubble.className = 'bg-white border rounded-xl p-2 shadow-sm';
+      welcomeBubble.innerHTML = `<span style="display: inline-flex; margin-right: 6px;">🧠</span> ${welcomeMessage.replace(/\n/g, '<br>')}`;
+      chatLog.appendChild(welcomeBubble);
+      
+      // Reset the transcript
+      transcript = [];
+      
+      // Reset the current state
+      currentState = 'main';
+      
+      // Reset focus
+      if (input) {
+        input.value = '';
+        input.placeholder = "Select an option or type your question...";
+      }
+      
+      // Show main menu options
+      addOptions(serviceCategories, handleCategorySelection);
+    }
+
+    // Show initial chat history when widget is first initialized
+    clearChatHistory();
+
+    // Attach event listeners with a more reliable approach
+    function attachEventListeners() {
+      console.log('Attaching event listeners');
+      
+      // Launcher click event
+      if (launcher) {
+        launcher.removeEventListener('click', handleLauncherClick); // Remove any existing listener
+        launcher.addEventListener('click', handleLauncherClick);
+        console.log('Launcher click listener attached');
+      }
+      
+      // Close button click event
+      if (closeBtn) {
+        closeBtn.removeEventListener('click', handleCloseClick); // Remove any existing listener
+        closeBtn.addEventListener('click', handleCloseClick);
+        console.log('Close button listener attached');
+      }
+      
+      // Outside click to close
+      document.removeEventListener('click', handleOutsideClick); // Remove any existing listener
+      document.addEventListener('click', handleOutsideClick);
+      
+      // Prevent closing when clicking inside the chat panel
+      if (panel) {
+        panel.removeEventListener('click', handlePanelClick); // Remove any existing listener
+        panel.addEventListener('click', handlePanelClick);
+        console.log('Panel click listener attached');
+      }
+      
+      // Form submission
+      if (form) {
+        form.removeEventListener('submit', handleFormSubmit); // Remove any existing listener
+        form.addEventListener('submit', handleFormSubmit);
+        console.log('Form submit listener attached');
+      }
+    }
+    
+    // Event handler functions
+    function handleLauncherClick(e) {
+      console.log('Chat launcher clicked');
+      e.preventDefault();
+      e.stopPropagation();
+      if (panel) {
+        // Toggle panel visibility
+        if (panel.classList.contains('hidden')) {
+          // If panel is hidden, show it and clear chat history
+          panel.classList.remove('hidden');
+          if (input) input.focus();
+          clearChatHistory();
+        } else {
+          // If panel is visible, hide it
+          panel.classList.add('hidden');
+        }
+      }
+    }
+    
+    function handleCloseClick(e) {
+      console.log('Close button clicked');
+      e.preventDefault();
+      e.stopPropagation();
+      if (panel) panel.classList.add('hidden');
+    }
+    
+    function handleOutsideClick(e) {
+      // Check if click is outside the chat panel and chat launcher
+      if (panel && launcher && 
+          !panel.contains(e.target) && 
+          !launcher.contains(e.target) && 
+          !panel.classList.contains('hidden')) {
+        panel.classList.add('hidden');
+      }
+    }
+    
+    function handlePanelClick(e) {
+      e.stopPropagation();
+    }
+    
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const msg = input.value.trim();
+      if(!msg) return;
+      addBubble(msg,'user');
+      transcript.push({role:'user', content: msg});
+      input.value = '';
+
+      // Handle specific commands
+      if(/^main$|^menu$|^start$/i.test(msg)){
+        showMainMenu();
+        return;
+      }
+
+      // Check if user wants to talk to an agent
+      if(/^agent$|^talk to (a )?human|^live\s?agent|^yes$/i.test(msg)){
+        addBubble("To connect you with a live agent, please provide your email address:");
+        transcript.push({role:'bot', content:'Requested email for agent connection'});
+        
+        // Create email input form
+        const emailForm = document.createElement('form');
+        emailForm.className = 'flex gap-2';
+        emailForm.innerHTML = `
+          <input type="email" id="email-input" class="flex-1 rounded-xl border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-silver-lake-blue" placeholder="your@email.com" required />
+          <button class="rounded-xl bg-yinmn-blue text-white px-3 py-2 hover:bg-silver-lake-blue transition-colors">Send</button>
+        `;
+        
+        const chatLog = document.getElementById('chat-log');
+        const wrapper = document.createElement('div');
+        wrapper.className = 'bubble-bot';
+        wrapper.appendChild(emailForm);
+        chatLog.appendChild(wrapper);
+        chatLog.scrollTop = chatLog.scrollHeight;
+        
+        const emailInput = emailForm.querySelector('#email-input');
+        emailInput.focus();
+        
+        emailForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const email = emailInput.value.trim();
+          if (email) {
+            addBubble(`Thank you! A live agent will contact you at ${email} soon.`, 'bot');
+            transcript.push({role:'bot', content:`Agent requested. Contact: ${email}`});
+            await alertOwner(email);
+          }
+        });
+        return;
+      }
+
+      // If user says no to agent
+      if(/^no$/i.test(msg)){
+        addBubble("Is there anything else I can help you with? You can type 'main' to see all options again.");
+        return;
+      }
+
+      // Search knowledge base for answer
+      console.log('Searching knowledge base for:', msg);
+      const kbAnswer = await searchKnowledgeBase(msg);
+      console.log('Knowledge base answer:', kbAnswer);
+      if (kbAnswer) {
+        addBubble(kbAnswer);
+        transcript.push({role:'bot', content: kbAnswer});
+        return;
+      }
+
+      // If no answer found in knowledge base
+      console.log('No answer found in KB, showing default response');
+      addBubble("I can help you better if you select from the options provided.");
+      offerAgent();
+    }
+    
+    // Attach the event listeners
+    attachEventListeners();
+    
+    console.log('Chat widget initialization complete');
+  }, 100); // Small delay to ensure DOM is ready
+}
+
+// Wait for DOM to be fully loaded before initializing
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the chat widget
+  initChatWidget();
+});
+
+// Also try initializing immediately if the DOM is already loaded
+if (document.readyState !== 'loading') {
+  initChatWidget();
+}</script> </body></html>
