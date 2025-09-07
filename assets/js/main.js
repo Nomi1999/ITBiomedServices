@@ -32,8 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('After toggle - navLinks classes:', navLinks.className);
             console.log('navLinks has active class:', navLinks.classList.contains('active'));
             
-            if (header) header.classList.toggle('active');
-            if (nav) nav.classList.toggle('active');
+            // Add/remove body scroll lock based on menu state
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
             
             // Close mobile menu when clicking outside
             if (navLinks.classList.contains('active')) {
@@ -46,14 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Close mobile menu when clicking on a navigation link (but not Services toggle)
-        const navLinksItems = navLinks.querySelectorAll('a');
+        const navLinksItems = navLinks.querySelectorAll('a:not(.services-toggle)');
         navLinksItems.forEach(link => {
             link.addEventListener('click', function() {
                 console.log('Closing mobile menu via link click');
                 navLinks.classList.remove('active');
                 navToggle.classList.remove('active');
-                if (header) header.classList.remove('active');
-                if (nav) nav.classList.remove('active');
+                document.body.style.overflow = '';
                 document.removeEventListener('click', closeMenuOnClickOutside);
             });
         });
@@ -95,8 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Closing mobile menu via outside click');
             navLinks.classList.remove('active');
             navToggle.classList.remove('active');
-            if (header) header.classList.remove('active');
-            if (nav) nav.classList.remove('active');
+            document.body.style.overflow = '';
             document.removeEventListener('click', closeMenuOnClickOutside);
         }
         
@@ -106,8 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Closing mobile menu via Escape key');
                 navLinks.classList.remove('active');
                 navToggle.classList.remove('active');
-                if (header) header.classList.remove('active');
-                if (nav) nav.classList.remove('active');
+                document.body.style.overflow = '';
                 document.removeEventListener('click', closeMenuOnClickOutside);
             }
         });
