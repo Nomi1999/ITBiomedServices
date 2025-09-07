@@ -225,26 +225,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Parallax effect for background elements
     const parallaxElements = document.querySelectorAll('[data-parallax]');
     if (parallaxElements.length > 0) {
-        const parallaxObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    window.addEventListener('scroll', () => updateParallax(entry.target));
-                } else {
-                    window.removeEventListener('scroll', () => updateParallax(entry.target));
-                }
-            });
-        });
+        // Enhanced parallax effect with smoother performance
+        let ticking = false;
         
-        parallaxElements.forEach(element => {
-            parallaxObserver.observe(element);
-        });
-    }
-    
-    function updateParallax(element) {
-        const rect = element.getBoundingClientRect();
-        const speed = element.dataset.parallax || 0.5;
-        const yPos = -(rect.top * speed);
-        element.style.transform = `translateY(${yPos}px)`;
+        function updateParallax() {
+            parallaxElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const speed = parseFloat(element.dataset.parallax) || 0.5;
+                const yPos = -(rect.top * speed);
+                element.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+        
+        // Only add scroll listener if parallax elements exist
+        window.addEventListener('scroll', requestTick);
+        
+        // Initial update
+        updateParallax();
     }
     
     // Counter animation for statistics
